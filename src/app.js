@@ -10,11 +10,12 @@ const rl = readline.createInterface({
 });
 
 let newName = '';
+const newContent = '';
 
 const getFileName = () => {
   rl.question('Write your file name: ', (fileName) => {
     if (fileName.length === 0) {
-      console.log('Name most be more then 0 character!');
+      console.log('Name is required!');
       getFileName();
     } else {
       newName = fileName;
@@ -26,18 +27,21 @@ const getFileName = () => {
 const getContent = () => {
   rl.question('Write your content: ', (content) => {
     if (content.length === 0) {
-      console.log('Content most be more then 0 character');
+      console.log('Content is required!');
       getContent();
     } else {
-      fs.writeFile(newName, content, (err, data) => {
-        if (err) {
-          console.log('Error');
-        }
-        console.log('Success');
-      });
-
+      fileCreator();
       rl.close();
     }
+  });
+};
+
+const fileCreator = () => {
+  fs.writeFile(`./new_files_folder/${newName}`, newContent, (err, data) => {
+    if (err) {
+      console.log('Error');
+    }
+    console.log('Success');
   });
 };
 
